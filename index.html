@@ -1,44 +1,350 @@
-<button id="nextButton" onclick="
-  if (this.dataset.page === undefined) {
-    this.dataset.page = '0';
-  }
-  if (this.dataset.page === '0') {
-    document.getElementById('drinkName').textContent = '馥芮白';
-    document.getElementById('milk').textContent = '1️⃣蒸奶：1-2s';
-    document.getElementById('coffee').textContent = '2️⃣咖啡：精粹2  3  4';
-    document.getElementById('syrup').innerHTML =
-      '3️⃣糖浆：原味/0卡：3  4  5<br>风味：3  4  5';
-    document.getElementById('finish').innerHTML =
-      '4️⃣完成：Hot：杯口下方6mm<br>Ice：上线下方6mm/冰块杯口6mm<br>Ltice：logo6mm/冰块杯口6mm<br>Noice：上线下方6mm/牛奶杯口6mm<br>距杯口3-10cm以一支铅笔粗细缓慢均匀注入发泡牛奶至1/2-2/3，倾斜压低奶缸靠近页面形成白点';
-    this.dataset.page = '1';
-  } else if (this.dataset.page === '1') {
-    document.getElementById('drinkName').textContent = '卡布奇诺';
-    document.getElementById('milk').textContent = '1️⃣蒸奶：6-8s';
-    document.getElementById('coffee').textContent = '2️⃣咖啡：1  2  2';
-    document.getElementById('syrup').innerHTML =
-      '3️⃣糖浆：原味/0卡：3  4  5<br>风味：3  4  5';
-    document.getElementById('finish').innerHTML =
-      '4️⃣完成：杯口6mm<br>干（dry）：多奶泡少牛奶<br>湿（wet）：多牛奶少奶泡';
-    this.dataset.page = '2';
-  } else if (this.dataset.page === '2') {
-    document.getElementById('drinkName').textContent = '摩卡';
-    document.getElementById('milk').textContent = '1️⃣蒸奶：退杯X-H';
-    document.getElementById('coffee').textContent = '2️⃣咖啡：1  2  2';
-    document.getElementById('syrup').textContent =
-      '3️⃣摩卡酱15ml：3  4  5';
-    document.getElementById('finish').innerHTML =
-      '4️⃣完成：<br>摇匀浓缩和摩卡酱<br>Hot：杯口下方6mm<br>Ice：上线/冰块杯口6mm/搅打奶油<br>Ltice：logo/冰块杯口6mm/搅打奶油<br>Noice：上线/牛奶杯口6mm/搅打奶油';
-    this.dataset.page = '3';
-  } else {
-    document.getElementById('drinkName').textContent = '风味拿铁';
-    document.getElementById('milk').textContent = '1️⃣蒸奶：3-5s';
-    document.getElementById('coffee').textContent = '2️⃣咖啡：1  2  2';
-    document.getElementById('syrup').innerHTML =
-      '3️⃣糖浆：原味/0卡：3  4  5<br>风味：3  4  5';
-    document.getElementById('finish').innerHTML =
-      '4️⃣完成：Hot：杯口下方6mm<br>Ice：上线下方6mm/冰块杯口6mm<br>Ltice：logo6mm/冰块杯口6mm<br>Noice：上线下方6mm/牛奶杯口6mm';
-    this.dataset.page = '0';
-  }
-">
-  下一杯 →
-</button>
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+  >
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="default"
+  >
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="BrewBook"
+  >
+
+  <title>BrewBook</title>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+
+      width: 100%;
+      min-height: 100%;
+    }
+
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+
+      padding:
+        calc(28px + env(safe-area-inset-top))
+        22px
+        calc(28px + env(safe-area-inset-bottom))
+        22px;
+
+      background: #eef1ee;
+
+      color: #3f4844;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+    }
+
+
+    /* BrewBook 标题 */
+
+    body > h1 {
+      margin: 0 0 36px;
+
+      font-size: 20px;
+      font-weight: 500;
+
+      letter-spacing: 0.03em;
+    }
+
+
+    /* 饮品名称 */
+
+    #drinkName {
+      margin: 0 0 38px;
+
+      font-size: 36px;
+      font-weight: 600;
+
+      letter-spacing: 0.02em;
+    }
+
+
+    /* 配方 */
+
+    p {
+      margin: 0;
+
+      font-size: 17px;
+
+      line-height: 1.7;
+    }
+
+
+    /* 翻页按钮 */
+
+    button {
+      min-width: 110px;
+
+      padding:
+        13px
+        18px;
+
+      margin-top: 38px;
+
+      border: 0;
+
+      border-radius: 999px;
+
+      background: #dce5df;
+
+      color: #3f4844;
+
+      font-size: 16px;
+
+      font-family: inherit;
+
+      -webkit-tap-highlight-color: transparent;
+
+      cursor: pointer;
+    }
+
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <h1>BrewBook</h1>
+
+
+  <h2 id="drinkName">
+    风味拿铁
+  </h2>
+
+
+  <p id="milk">
+    1️⃣蒸奶：3-5s
+  </p>
+
+
+  <p id="coffee">
+    2️⃣咖啡：1　2　2
+  </p>
+
+
+  <p id="syrup">
+    3️⃣糖浆：原味/0卡：3　4　5<br>
+    风味：3　4　5
+  </p>
+
+
+  <p id="finish">
+    4️⃣完成：<br>
+    Hot：杯口下方6mm<br>
+    Ice：上线下方6mm/冰块杯口6mm<br>
+    Ltice：logo6mm/冰块杯口6mm<br>
+    Noice：上线下方6mm/牛奶杯口6mm
+  </p>
+
+
+  <button id="nextButton">
+    下一杯 →
+  </button>
+
+
+  <script>
+
+
+    const drinks = [
+
+      {
+        name: '馥芮白',
+
+        milk: '1️⃣蒸奶：1-2s',
+
+        coffee: '2️⃣咖啡：精粹2　3　4',
+
+        syrup: `
+          3️⃣糖浆：原味/0卡：3　4　5<br>
+          风味：3　4　5
+        `,
+
+        finish: `
+          4️⃣完成：<br>
+          Hot：杯口下方6mm<br>
+          Ice：上线下方6mm/冰块杯口6mm<br>
+          Ltice：logo6mm/冰块杯口6mm<br>
+          Noice：上线下方6mm/牛奶杯口6mm<br>
+          距杯口3-10cm以一支铅笔粗细缓慢均匀注入发泡牛奶至1/2-2/3，倾斜压低奶缸靠近页面形成白点
+        `
+      },
+
+
+      {
+        name: '卡布奇诺',
+
+        milk: '1️⃣蒸奶：6-8s',
+
+        coffee: '2️⃣咖啡：1　2　2',
+
+        syrup: `
+          3️⃣糖浆：原味/0卡：3　4　5<br>
+          风味：3　4　5
+        `,
+
+        finish: `
+          4️⃣完成：杯口6mm<br>
+          干（dry）：多奶泡少牛奶<br>
+          湿（wet）：多牛奶少奶泡
+        `
+      },
+
+
+      {
+        name: '摩卡',
+
+        milk: '1️⃣蒸奶：退杯X-H',
+
+        coffee: '2️⃣咖啡：1　2　2',
+
+        syrup: `
+          3️⃣摩卡酱15ml：3　4　5
+        `,
+
+        finish: `
+          4️⃣完成：<br>
+          摇匀浓缩和摩卡酱<br>
+          Hot：杯口下方6mm<br>
+          Ice：上线/冰块杯口6mm/搅打奶油<br>
+          Ltice：logo/冰块杯口6mm/搅打奶油<br>
+          Noice：上线/牛奶杯口6mm/搅打奶油
+        `
+      },
+
+
+      {
+        name: '风味拿铁',
+
+        milk: '1️⃣蒸奶：3-5s',
+
+        coffee: '2️⃣咖啡：1　2　2',
+
+        syrup: `
+          3️⃣糖浆：原味/0卡：3　4　5<br>
+          风味：3　4　5
+        `,
+
+        finish: `
+          4️⃣完成：<br>
+          Hot：杯口下方6mm<br>
+          Ice：上线下方6mm/冰块杯口6mm<br>
+          Ltice：logo6mm/冰块杯口6mm<br>
+          Noice：上线下方6mm/牛奶杯口6mm
+        `
+      }
+
+    ];
+
+
+    let page = 3;
+
+
+    const drinkName =
+      document.getElementById('drinkName');
+
+
+    const milk =
+      document.getElementById('milk');
+
+
+    const coffee =
+      document.getElementById('coffee');
+
+
+    const syrup =
+      document.getElementById('syrup');
+
+
+    const finish =
+      document.getElementById('finish');
+
+
+    const nextButton =
+      document.getElementById('nextButton');
+
+
+    function showDrink(drink) {
+
+      drinkName.textContent =
+        drink.name;
+
+      milk.textContent =
+        drink.milk;
+
+      coffee.textContent =
+        drink.coffee;
+
+      syrup.innerHTML =
+        drink.syrup;
+
+      finish.innerHTML =
+        drink.finish;
+
+    }
+
+
+    nextButton.addEventListener(
+      'click',
+      function () {
+
+        page++;
+
+        if (page >= drinks.length) {
+          page = 0;
+        }
+
+        showDrink(
+          drinks[page]
+        );
+
+      }
+    );
+
+
+  </script>
+
+
+</body>
+
+</html>
